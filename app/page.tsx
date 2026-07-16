@@ -1,9 +1,5 @@
-const Home = () => {
-  return (
-    <>
-      <h1>Job pilot</h1>
-    </>
-  );
-};
+import { Homepage } from "@/components/homepage/Homepage";
 
-export default Home;
+export default function Home() {
+  return <Homepage />;
+}
