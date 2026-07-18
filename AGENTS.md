@@ -12,7 +12,7 @@ Read in this exact order before any implementation:
 
 1. context/project-overview.md
 2. context/architecture.md
-3. context/ui-tokens.md
+3. context/ui-tokens.mda
 4. context/ui-rules.md
 5. context/ui-registry.md
 6. context/code-standards.md
@@ -39,6 +39,7 @@ Read in this exact order before any implementation:
 - `/remember restore` — when returning after a multi-session feature.
 
 <!-- INSFORGE:START -->
+
 ## InsForge backend
 
 This project uses [InsForge](https://insforge.dev): an all-in-one, open-source Postgres-based backend (BaaS) that gives this app a database, authentication, file storage, edge functions, realtime, an AI model gateway, and payments through one platform.
@@ -58,3 +59,9 @@ Key patterns:
 - Reference users with `auth.users(id)`; use `auth.uid()` in RLS policies.
 - For storage uploads, persist both the returned `url` and `key`.
 <!-- INSFORGE:END -->
+
+## Context files
+
+- Design system: build all UI to `design.md` (art direction and the product bar); token values live in CSS.
+- [components/profile/AGENTS.md](components/profile/AGENTS.md): profile screen component conventions and the Server Action persistence boundary.
+- [components/jobs/AGENTS.md](components/jobs/AGENTS.md): Find Jobs screen conventions, mock data boundary, and responsive table behavior.

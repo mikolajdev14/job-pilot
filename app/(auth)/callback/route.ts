@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { OAUTH_CODE_VERIFIER_COOKIE } from "@/lib/auth-constants";
+import { getInsforgeBaseUrl } from "@/lib/insforge-config";
 import { getPostHogClient } from "@/lib/posthog-server";
 
 export async function GET(request: Request): Promise<Response> {
@@ -20,7 +21,10 @@ export async function GET(request: Request): Promise<Response> {
       return NextResponse.redirect(new URL("/login?error=missing_verifier", request.url));
     }
 
-    const auth = createAuthActions({ cookies: cookieStore });
+    const auth = createAuthActions({
+      baseUrl: getInsforgeBaseUrl(),
+      cookies: cookieStore,
+    });
     const { data, error } = await auth.exchangeOAuthCode(code, codeVerifier);
     cookieStore.delete(OAUTH_CODE_VERIFIER_COOKIE);
 
@@ -44,7 +48,7 @@ export async function GET(request: Request): Promise<Response> {
     });
     await posthog.flush();
 
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/profile", request.url));
   } catch (error) {
     console.error("[auth/callback] OAuth callback failed", error);
     return NextResponse.redirect(new URL("/login?error=oauth_failed", request.url));

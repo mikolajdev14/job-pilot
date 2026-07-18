@@ -26,7 +26,7 @@ Root classes: `border-b border-border bg-surface`
 
 Layout classes: `mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-6 px-6 lg:px-10`
 
-Navigation link classes: `rounded-md px-2 py-2 text-sm font-medium text-text-dark transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2`
+Navigation link classes: `rounded-md border-b-2 px-2 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2`; inactive links add `border-transparent text-text-dark hover:text-accent`, active links add `border-accent text-accent` and `aria-current="page"`
 
 Primary action classes: `inline-flex min-h-11 items-center justify-center rounded-md bg-overlay-dark px-4 py-2 text-sm font-medium text-surface transition-colors hover:bg-text-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2`
 
@@ -87,3 +87,35 @@ Root classes: `w-full max-w-md rounded-xl border border-border bg-surface p-8 sh
 Provider button classes: `flex min-h-11 w-full items-center justify-center rounded-md border border-border bg-surface px-4 py-2 text-sm font-medium text-text-primary transition-colors hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60`
 
 Primary provider button classes: `flex min-h-11 w-full items-center justify-center rounded-md bg-overlay-dark px-4 py-2 text-sm font-medium text-surface transition-colors hover:bg-text-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60`
+
+### ProfileForm
+
+Path: `components/profile/ProfileForm.tsx`
+
+Page layout classes: `flex-1 bg-background` with centered content `mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-10`
+
+Card classes: `rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6`
+
+Input classes: `min-h-11 w-full rounded-md border border-border bg-surface px-3 py-2 text-base text-text-primary shadow-sm outline-none transition-colors placeholder:text-text-muted hover:border-border-muted focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:bg-surface-secondary disabled:text-text-secondary`
+
+Primary action classes: `inline-flex min-h-11 items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2`
+
+Secondary action classes: `inline-flex min-h-11 items-center justify-center rounded-md bg-accent-light px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2`
+
+Extraction panel classes: `flex flex-col gap-3 rounded-lg border border-accent/30 bg-accent-light px-4 py-4 sm:flex-row sm:items-center sm:justify-between`
+
+Resume generation action uses the primary action classes and exposes `Generating Resume...`, `Resume Generated`, and `Generate Resume from Profile` states. Errors use `role="alert"`; successful generation uses `role="status"`.
+
+Generated resume access uses a secondary styled link to `/api/resume/download` labeled `Open generated resume`.
+
+### FindJobsPage
+
+Path: `components/jobs/FindJobsPage.tsx`
+
+Page layout classes: `flex-1 bg-background` with centered content `mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-10 lg:py-10`
+
+Content cards: `rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6`
+
+Jobs table: semantic `table` inside `overflow-x-auto`, with `border-b border-border` rows, `hover:bg-surface-secondary`, and score bar colors `bg-success`, `bg-info-medium`, or `bg-warning` by match score.
+
+Pagination controls use `min-h-11` touch targets and the active page uses `border-accent/20 bg-accent-light text-accent`.

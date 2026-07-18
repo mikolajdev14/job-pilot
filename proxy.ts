@@ -2,6 +2,7 @@ import { updateSession } from "@insforge/sdk/ssr/middleware";
 import type { CookieOptions, CookieStore } from "@insforge/sdk/ssr/middleware";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getInsforgeBaseUrl } from "@/lib/insforge-config";
 
 const protectedPathPrefixes = ["/dashboard", "/profile", "/find-jobs"];
 
@@ -60,6 +61,8 @@ export async function proxy(request: NextRequest): Promise<Response> {
 
   try {
     sessionResult = await updateSession({
+      baseUrl: getInsforgeBaseUrl(),
+      anonKey: process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY,
       requestCookies,
       responseCookies,
     });

@@ -3,6 +3,7 @@
 import { createAuthActions } from "@insforge/sdk/ssr";
 import { cookies, headers } from "next/headers";
 import { OAUTH_CODE_VERIFIER_COOKIE } from "@/lib/auth-constants";
+import { getInsforgeBaseUrl } from "@/lib/insforge-config";
 
 type OAuthProvider = "google" | "github";
 
@@ -39,7 +40,10 @@ export async function startOAuthSignIn(provider: string): Promise<OAuthResult> {
     }
 
     const cookieStore = await cookies();
-    const auth = createAuthActions({ cookies: cookieStore });
+    const auth = createAuthActions({
+      baseUrl: getInsforgeBaseUrl(),
+      cookies: cookieStore,
+    });
     const redirectTo = await getOAuthCallbackUrl();
     const { data, error } = await auth.signInWithOAuth(provider, {
       redirectTo,
@@ -68,7 +72,10 @@ export async function startOAuthSignIn(provider: string): Promise<OAuthResult> {
 
 export async function signOut(): Promise<{ success: boolean; error?: string }> {
   try {
-    const auth = createAuthActions({ cookies: await cookies() });
+    const auth = createAuthActions({
+      baseUrl: getInsforgeBaseUrl(),
+      cookies: await cookies(),
+    });
     const { error } = await auth.signOut();
 
     if (error) {
