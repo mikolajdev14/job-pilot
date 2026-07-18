@@ -116,6 +116,6 @@ Page layout classes: `flex-1 bg-background` with centered content `mx-auto flex 
 
 Content cards: `rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6`
 
-Jobs table: semantic `table` inside `overflow-x-auto`, with `border-b border-border` rows, `hover:bg-surface-secondary`, and score bar colors `bg-success`, `bg-info-medium`, or `bg-warning` by match score.
+Jobs table: semantic `table` inside `overflow-x-auto`, with `border-b border-border` rows, `hover:bg-surface-secondary`, and score bar colors `bg-success`, `bg-info-medium`, or `bg-warning` by match score. The initial mock rows are replaced with `/api/agent/find` results after a successful search.
 
 Pagination controls use `min-h-11` touch targets and the active page uses `border-accent/20 bg-accent-light text-accent`.

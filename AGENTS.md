@@ -65,3 +65,4 @@ Key patterns:
 - Design system: build all UI to `design.md` (art direction and the product bar); token values live in CSS.
 - [components/profile/AGENTS.md](components/profile/AGENTS.md): profile screen component conventions and the Server Action persistence boundary.
 - [components/jobs/AGENTS.md](components/jobs/AGENTS.md): Find Jobs screen conventions, mock data boundary, and responsive table behavior.
+- [app/api/agent/AGENTS.md](app/api/agent/AGENTS.md): authenticated job discovery route, external API boundaries, and agent run logging.

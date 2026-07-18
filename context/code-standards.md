@@ -248,9 +248,9 @@ All environment variables defined in `.env.local` for development. Never hardcod
 | `BROWSERBASE_API_KEY`           | lib/browserbase.ts     |
 | `BROWSERBASE_PROJECT_ID`        | lib/browserbase.ts     |
 | `OPENAI_API_KEY`                | agent/ functions       |
-| `ADZUNA_APP_ID`                 | lib/adzuna.ts          |
-| `ADZUNA_APP_KEY`                | lib/adzuna.ts          |
-| `NEXT_PUBLIC_POSTHOG_KEY`       | lib/posthog-client.ts  |
+| `ADZUNA_APPLICATION_ID` or `ADZUNA_APP_ID` | lib/adzuna.ts          |
+| `ADZUNA_API_KEY` or `ADZUNA_APP_KEY`       | lib/adzuna.ts          |
+| `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN`        | lib/posthog-server.ts  |
 | `NEXT_PUBLIC_POSTHOG_HOST`      | lib/posthog-client.ts  |
 
 `NEXT_PUBLIC_` prefix means the variable is exposed to the browser. Never add `NEXT_PUBLIC_` to secret keys.

@@ -7,8 +7,8 @@ Update this file after every completed feature. Any AI agent reading this should
 ## Current Status
 
 **Phase:** Phase 3, Find Jobs Page
-**Last completed:** 09 Find Jobs Page — Full UI
-**Next:** 10 Adzuna Job Discovery
+**Last completed:** 10 Adzuna Job Discovery
+**Next:** 11 Filter + Sort + Pagination
 
 ---
 
@@ -31,7 +31,7 @@ Update this file after every completed feature. Any AI agent reading this should
 ### Phase 3 — Find Jobs Page
 
 - [x] 09 Find Jobs Page — Full UI
-- [ ] 10 Adzuna Job Discovery
+- [x] 10 Adzuna Job Discovery
 - [ ] 11 Filter + Sort + Pagination
 
 ### Phase 4 — Job Details Page
@@ -64,4 +64,5 @@ _Add notes here as the build progresses — workarounds, patterns, anything that
 - 06 Profile Save Logic uses a Server Action for owner-scoped profile upserts, deterministic resume storage at `{user_id}/resume.pdf`, completion calculation, and `/profile` revalidation.
 - 07 AI Profile Extraction uses `pdf-parse` and server-only GPT-4o extraction, then fills the form for review before the user saves it.
 - 08 Resume PDF Generation uses server-only GPT-4o content generation, `@react-pdf/renderer` with `renderToBuffer()`, and deterministic storage at `{user_id}/resume.pdf`; the generated URL is saved to `profiles.resume_pdf_url` and opened through the authenticated download route.
-- 09 Find Jobs is implemented as a responsive mock UI with local search controls, filters, sorting, score bars, source badges, empty state, and pagination. Adzuna integration remains Feature 10.
+- 09 Find Jobs is implemented as a responsive UI with initial mock rows, local filters, sorting, score bars, source badges, empty state, and pagination.
+- 10 Adzuna Job Discovery adds `/api/agent/find`, server side Adzuna search, GPT-4o scoring, owner scoped `agent_runs`, `jobs`, and `agent_logs` writes, and the required PostHog events. The Find Jobs screen consumes the returned matches.

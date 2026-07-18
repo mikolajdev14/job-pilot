@@ -1,9 +1,10 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { MATCH_THRESHOLD } from "@/lib/utils";
 
 type Job = {
-  id: number;
+  id: string | number;
   company: string;
   role: string;
   score: number;
@@ -15,7 +16,7 @@ type Job = {
 type MatchFilter = "all" | "high" | "low";
 type SortOrder = "score" | "newest" | "oldest";
 
-const jobs: Job[] = [
+const mockJobs: Job[] = [
   { id: 1, company: "Vercel", role: "Senior Frontend Engineer", score: 94, salary: "$160k - $200k", source: "Search", dateFound: "2 hours ago" },
   { id: 2, company: "Stripe", role: "Staff UI Engineer", score: 88, salary: "$180k - $240k", source: "Search", dateFound: "Yesterday" },
   { id: 3, company: "Linear", role: "Product Engineer", score: 96, salary: "$150k - $190k", source: "Search", dateFound: "Yesterday" },
@@ -44,7 +45,38 @@ const jobs: Job[] = [
 
 const PAGE_SIZE = 6;
 const TOTAL_RESULTS = 24;
-const TOTAL_PAGES = Math.ceil(TOTAL_RESULTS / PAGE_SIZE);
+
+function recordValue(value: unknown): Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+}
+
+function stringValue(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
+
+function numberValue(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function parseJobPreview(value: unknown): Job | null {
+  const job = recordValue(value);
+  const company = stringValue(job.company);
+  const role = stringValue(job.role);
+  const score = numberValue(job.score);
+  if (!company || !role || score === null) return null;
+
+  return {
+    id: stringValue(job.id) || `${company}-${role}`,
+    company,
+    role,
+    score,
+    salary: stringValue(job.salary) || "Not listed",
+    source: job.source === "URL" ? "URL" : "Search",
+    dateFound: stringValue(job.dateFound) || "Just now",
+  };
+}
 
 function SearchIcon() {
   return (
@@ -104,34 +136,68 @@ function scoreText(score: number): string {
 export function FindJobsPage() {
   const [jobTitle, setJobTitle] = useState("Frontend Engineer");
   const [location, setLocation] = useState("");
+  const [jobResults, setJobResults] = useState<Job[]>(mockJobs);
+  const [jobsFound, setJobsFound] = useState(TOTAL_RESULTS);
+  const [strongMatches, setStrongMatches] = useState(4);
   const [filterQuery, setFilterQuery] = useState("");
   const [matchFilter, setMatchFilter] = useState<MatchFilter>("all");
   const [sortOrder, setSortOrder] = useState<SortOrder>("score");
   const [page, setPage] = useState(1);
-  const [searchState, setSearchState] = useState<"success" | "searching">("success");
+  const [searchState, setSearchState] = useState<"success" | "searching" | "error">("success");
+  const [searchError, setSearchError] = useState("");
 
   const filteredJobs = useMemo(() => {
     const query = filterQuery.trim().toLowerCase();
-    const matchingJobs = jobs.filter((job) => {
+    const matchingJobs = jobResults.filter((job) => {
       const matchesText = !query || `${job.company} ${job.role}`.toLowerCase().includes(query);
-      const matchesScore = matchFilter === "all" || (matchFilter === "high" ? job.score >= 70 : job.score < 70);
+      const matchesScore = matchFilter === "all" || (matchFilter === "high" ? job.score >= MATCH_THRESHOLD : job.score < MATCH_THRESHOLD);
       return matchesText && matchesScore;
     });
 
     return matchingJobs.sort((first, second) => {
       if (sortOrder === "score") return second.score - first.score;
-      if (sortOrder === "oldest") return second.id - first.id;
-      return first.id - second.id;
+      if (sortOrder === "oldest") return String(second.id).localeCompare(String(first.id));
+      return String(first.id).localeCompare(String(second.id));
     });
-  }, [filterQuery, matchFilter, sortOrder]);
+  }, [filterQuery, jobResults, matchFilter, sortOrder]);
 
+  const isFiltered = Boolean(filterQuery.trim()) || matchFilter !== "all";
+  const resultCount = isFiltered ? filteredJobs.length : jobsFound;
+  const pageCount = !isFiltered && jobsFound === TOTAL_RESULTS ? 8 : Math.max(1, Math.ceil(resultCount / PAGE_SIZE));
   const visibleJobs = filteredJobs.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+  const handleSearch = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchState("searching");
-    setPage(1);
-    window.setTimeout(() => setSearchState("success"), 350);
+    setSearchError("");
+
+    try {
+      const response = await fetch("/api/agent/find", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jobTitle, location }),
+      });
+      const payload = await response.json().catch(() => null) as unknown;
+      const result = recordValue(payload);
+      const parsedJobs = Array.isArray(result.jobs)
+        ? result.jobs.map(parseJobPreview).filter((job): job is Job => job !== null)
+        : [];
+
+      if (!response.ok || result.success !== true) {
+        setSearchState("error");
+        setSearchError(stringValue(result.error) || "We could not find jobs right now. Please try again.");
+        return;
+      }
+
+      setJobResults(parsedJobs);
+      setJobsFound(numberValue(result.jobsFound) ?? parsedJobs.length);
+      setStrongMatches(numberValue(result.strongMatches) ?? parsedJobs.filter((job) => job.score >= MATCH_THRESHOLD).length);
+      setPage(1);
+      setSearchState("success");
+    } catch {
+      setSearchState("error");
+      setSearchError("We could not find jobs right now. Please try again.");
+    }
   };
 
   const updateFilter = (value: string) => {
@@ -174,10 +240,8 @@ export function FindJobsPage() {
             </button>
           </form>
 
-          <div role="status" aria-live="polite" className="mt-5 flex items-center gap-3 rounded-lg border border-success/20 bg-success-lightest px-4 py-4 text-base font-medium text-success-dark">
-            <SparkleIcon />
-            <span>Found 8 jobs and saved 4 strong matches.</span>
-          </div>
+          {searchState === "success" && <div role="status" aria-live="polite" className="mt-5 flex items-center gap-3 rounded-lg border border-success/20 bg-success-lightest px-4 py-4 text-base font-medium text-success-dark"><SparkleIcon /><span>Found {jobsFound} jobs and saved {strongMatches} strong matches.</span></div>}
+          {searchState === "error" && <p role="alert" className="mt-5 rounded-lg border border-error/30 bg-error/10 px-4 py-4 text-base text-error">{searchError}</p>}
         </section>
 
         <section aria-labelledby="job-results-title" className="flex flex-col gap-6">
@@ -262,18 +326,17 @@ export function FindJobsPage() {
             </div>
 
             <div className="flex flex-col gap-4 border-t border-border px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-base text-text-secondary">Showing <strong className="font-semibold text-text-primary">{Math.min((page - 1) * PAGE_SIZE + 1, TOTAL_RESULTS)}</strong> to <strong className="font-semibold text-text-primary">{Math.min(page * PAGE_SIZE, TOTAL_RESULTS)}</strong> of <strong className="font-semibold text-text-primary">{TOTAL_RESULTS}</strong> results</p>
+              <p className="text-base text-text-secondary">Showing <strong className="font-semibold text-text-primary">{resultCount === 0 ? 0 : Math.min((page - 1) * PAGE_SIZE + 1, resultCount)}</strong> to <strong className="font-semibold text-text-primary">{Math.min(page * PAGE_SIZE, resultCount)}</strong> of <strong className="font-semibold text-text-primary">{resultCount}</strong> results</p>
               <nav aria-label="Job results pagination" className="flex items-center gap-2">
                 <button type="button" onClick={() => setPage((current) => Math.max(1, current - 1))} disabled={page === 1} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-surface px-4 text-sm font-medium text-text-secondary transition-colors hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">Previous</button>
                 <div className="hidden items-center gap-2 sm:flex">
-                  {[1, 2, 3].map((number) => (
+                  {[1, 2, 3].filter((number) => number <= pageCount).map((number) => (
                     <button key={number} type="button" onClick={() => setPage(number)} aria-current={page === number ? "page" : undefined} className={`inline-flex size-11 items-center justify-center rounded-lg border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${page === number ? "border-accent/20 bg-accent-light text-accent" : "border-border bg-surface text-text-secondary hover:bg-surface-secondary"}`}>{number}</button>
                   ))}
-                  <span className="px-1 text-text-muted" aria-hidden="true">...</span>
-                  <button type="button" onClick={() => setPage(8)} aria-current={page === 8 ? "page" : undefined} className={`inline-flex size-11 items-center justify-center rounded-lg border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${page === 8 ? "border-accent/20 bg-accent-light text-accent" : "border-border bg-surface text-text-secondary hover:bg-surface-secondary"}`}>8</button>
+                  {pageCount > 3 && <><span className="px-1 text-text-muted" aria-hidden="true">...</span><button type="button" onClick={() => setPage(pageCount)} aria-current={page === pageCount ? "page" : undefined} className={`inline-flex size-11 items-center justify-center rounded-lg border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${page === pageCount ? "border-accent/20 bg-accent-light text-accent" : "border-border bg-surface text-text-secondary hover:bg-surface-secondary"}`}>{pageCount}</button></>}
                 </div>
-                <span className="text-sm font-medium text-text-secondary sm:hidden">Page {page} of {TOTAL_PAGES}</span>
-                <button type="button" onClick={() => setPage((current) => Math.min(TOTAL_PAGES, current + 1))} disabled={page === TOTAL_PAGES} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-surface px-4 text-sm font-medium text-text-secondary transition-colors hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">Next</button>
+                <span className="text-sm font-medium text-text-secondary sm:hidden">Page {page} of {pageCount}</span>
+                <button type="button" onClick={() => setPage((current) => Math.min(pageCount, current + 1))} disabled={page === pageCount} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border bg-surface px-4 text-sm font-medium text-text-secondary transition-colors hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">Next</button>
               </nav>
             </div>
           </div>
