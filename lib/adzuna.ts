@@ -1,4 +1,4 @@
-export type AdzunaCountry = "us" | "gb" | "au" | "ca";
+export type AdzunaCountry = "us" | "gb" | "au" | "ca" | "pl";
 
 export type AdzunaJob = {
   id: string;
@@ -67,6 +67,8 @@ function parseJob(value: unknown): AdzunaJob | null {
 
 export function detectAdzunaCountry(location: string): AdzunaCountry {
   const normalized = location.toLowerCase();
+  const polishLocations = ["poland", "polska", "krakow", "kraków", "warsaw", "warszawa", "wroclaw", "wrocław", "gdansk", "gdańsk", "poznan", "poznań", "lodz", "łódź", "katowice"];
+  if (polishLocations.some((term) => normalized.includes(term))) return "pl";
   if (/(^|\W)(uk|united kingdom|england|scotland|wales)(\W|$)/.test(normalized)) return "gb";
   if (/(^|\W)(australia|sydney|melbourne)(\W|$)/.test(normalized)) return "au";
   if (/(^|\W)(canada|toronto|vancouver|montreal)(\W|$)/.test(normalized)) return "ca";

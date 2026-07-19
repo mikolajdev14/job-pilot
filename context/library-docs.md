@@ -241,7 +241,7 @@ const jobRecord = {
 - `source` is always `'search'` for Adzuna jobs — never any other value
 - `salary_is_predicted: "1"` means Adzuna estimated the salary — this is normal
 - Adzuna description is a snippet — GPT-4o scores from it, not a full description
-- Default country to `'us'` — support `gb`, `au`, `ca` as alternatives
+- Default country to `'us'` — support `gb`, `au`, `ca`, and `pl` as alternatives
 
 ---
 
