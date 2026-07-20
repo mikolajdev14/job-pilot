@@ -1,350 +1,92 @@
 # UI Tokens
 
-Design tokens for JobPilot. All colors, typography, spacing, and component values extracted from the delivered design. Use these exact values throughout the codebase — never hardcode colors or use raw Tailwind color classes in components.
+The token source for JobPilot is `app/globals.css`. The current system is dark and monochrome. Components only use semantic Tailwind utilities generated from the tokens below.
 
----
-
-## How to Use
-
-This project uses **Tailwind CSS v4**. All design tokens are defined using the `@theme` directive in `app/globals.css`. No `tailwind.config.ts` needed for colors or tokens.
-
-Tailwind v4 automatically generates utility classes from `@theme` variables:
-
-- `--color-accent` → `bg-accent`, `text-accent`, `border-accent`
-- `--color-surface` → `bg-surface`, `text-surface`, `border-surface`
+## Usage
 
 ```tsx
-// Correct — uses generated utility classes
 className="bg-surface text-text-primary border-border"
-
-// Also correct — references CSS variable directly
-style={{ color: 'var(--color-text-primary)' }}
-
-// Never — hardcoded hex values
-className="bg-[#F6F7FB] text-[#101828]"
-
-// Never — raw Tailwind color classes
-className="bg-purple-500 text-gray-600"
 ```
 
----
+Never use a color literal or a built in Tailwind color scale inside a component.
 
-## globals.css — Complete Token Definition
+## Core palette
 
-```css
-@import "tailwindcss";
+| Purpose | Token | Utility example |
+| --- | --- | --- |
+| Page canvas | `--color-background` | `bg-background` |
+| Main panel | `--color-surface` | `bg-surface` |
+| Inset control | `--color-surface-secondary` | `bg-surface-secondary` |
+| Raised hover | `--color-surface-tertiary` | `bg-surface-tertiary` |
+| Quiet area | `--color-surface-muted` | `bg-surface-muted` |
+| Standard border | `--color-border` | `border-border` |
+| Strong border | `--color-border-muted` | `border-border-muted` |
+| Primary text | `--color-text-primary` | `text-text-primary` |
+| Supporting text | `--color-text-secondary` | `text-text-secondary` |
+| Muted text | `--color-text-muted` | `text-text-muted` |
+| Primary action | `--color-accent` | `bg-accent` |
+| Action text | `--color-accent-foreground` | `text-accent-foreground` |
 
-@theme {
-  /* Font */
-  --font-sans: "Inter", sans-serif;
+Values use `oklch()` in `app/globals.css`. This keeps perceptual contrast predictable and avoids color literals in components.
 
-  /* Page and surface backgrounds */
-  --color-background: #f6f7fb;
-  --color-surface: #ffffff;
-  --color-surface-secondary: #f9fafb;
-  --color-surface-tertiary: #f2f5f7;
-  --color-surface-muted: #f4f5fb;
+## Status colors
 
-  /* Borders */
-  --color-border: #e7eaf3;
-  --color-border-light: #e5e7eb;
-  --color-border-muted: #dfe1e7;
+Status colors remain available for information that needs meaning beyond the monochrome shell.
 
-  /* Text */
-  --color-text-primary: #101828;
-  --color-text-secondary: #6a7282;
-  --color-text-muted: #99a1af;
-  --color-text-dark: #364153;
-  --color-text-darker: #36394a;
-  --color-text-darkest: #111827;
-  --color-text-black: #131316;
-  --color-text-slate: #272835;
-  --color-text-slate-medium: #666d80;
+| State | Foreground | Quiet surface |
+| --- | --- | --- |
+| Success and strong match | `success` | `success-lightest` |
+| Information | `info-dark` | `info-lightest` |
+| Warning | `warning` | `warning/10` |
+| Error | `error` | `error/10` |
 
-  /* Primary accent — purple */
-  --color-accent: #7c5cfc;
-  --color-accent-dark: #5e4cff;
-  --color-accent-light: #f3e8ff;
-  --color-accent-muted: #faf5ff;
-  --color-accent-foreground: #ffffff;
+Status must always include text or an icon. Color alone cannot carry meaning.
 
-  /* Success — green */
-  --color-success: #10b981;
-  --color-success-alt: #00bc7d;
-  --color-success-dark: #007a55;
-  --color-success-darker: #009966;
-  --color-success-light: #d0fae5;
-  --color-success-lightest: #ecfdf5;
-  --color-success-foreground: #007a55;
+## Geometry
 
-  /* Info — blue */
-  --color-info: #61a8ff;
-  --color-info-dark: #155dfc;
-  --color-info-medium: #2b7fff;
-  --color-info-light: #dbeafe;
-  --color-info-lightest: #eff6ff;
-  --color-info-foreground: #155dfc;
-  --color-info-muted: #94a2c5;
-
-  /* Warning — orange */
-  --color-warning: #ff8904;
-  --color-warning-foreground: #ffffff;
-
-  /* Error — red */
-  --color-error: #ef4444;
-  --color-error-foreground: #ffffff;
-
-  /* LinkedIn brand */
-  --color-linkedin: #0a66c2;
-  --color-linkedin-light: #dce6f1;
-  --color-linkedin-foreground: #ffffff;
-
-  /* Dark overlays */
-  --color-overlay: #111827;
-  --color-overlay-dark: #131316;
-
-  /* Border radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-full: 9999px;
-}
-```
-
-Tailwind v4 generates utility classes automatically from every `--color-*` token above:
-
-- `bg-accent`, `text-accent`, `border-accent`
-- `bg-surface`, `text-surface-secondary`
-- `bg-success-light`, `text-text-muted`
-- etc.
-
----
-
-## Color Usage Guide
-
-### Page Layout
-
-| Element           | Token                  |
-| ----------------- | ---------------------- |
-| Page background   | `bg-background`        |
-| Card / surface    | `bg-surface`           |
-| Secondary surface | `bg-surface-secondary` |
-| Default border    | `border-border`        |
-| Light border      | `border-border-light`  |
-
-### Typography
-
-| Element                | Token                           |
-| ---------------------- | ------------------------------- |
-| Headings, primary text | `text-text-primary` (#101828)   |
-| Secondary text, labels | `text-text-secondary` (#6A7282) |
-| Placeholder, muted     | `text-text-muted` (#99A1AF)     |
-| Dark labels            | `text-text-dark` (#364153)      |
-
-### Accent (Primary Purple)
-
-Used for: primary buttons, active nav items, match score bars, tailored badge, focus rings
-
-| Element                | Token                    |
-| ---------------------- | ------------------------ |
-| Button background      | `bg-accent`              |
-| Button text            | `text-accent-foreground` |
-| Light badge background | `bg-accent-light`        |
-| Subtle background      | `bg-accent-muted`        |
-
-### Match Score Colors
-
-Match score bars and indicators use gradient stops based on score range:
-
-| Score Range | Color  | Token                                  |
-| ----------- | ------ | -------------------------------------- |
-| 90-100%     | Green  | `text-success` / `bg-success-lightest` |
-| 70-89%      | Green  | `text-success` / `bg-success-light`    |
-| 50-69%      | Orange | `text-warning`                         |
-| Below 50%   | Gray   | `text-text-muted`                      |
-
-### Skills Badges
-
-| Type          | Background            | Text                      |
-| ------------- | --------------------- | ------------------------- |
-| Matched skill | `bg-success-lightest` | `text-success-foreground` |
-| Missing skill | `bg-accent-muted`     | `text-accent`             |
-
-### Source Badges
-
-| Source   | Background             | Text                  |
-| -------- | ---------------------- | --------------------- |
-| LinkedIn | `bg-linkedin-light`    | `text-linkedin`       |
-| URL      | `bg-surface-secondary` | `text-text-secondary` |
-
-### Status Badges
-
-| Status     | Background             | Text                      |
-| ---------- | ---------------------- | ------------------------- |
-| Tailored   | `bg-accent-light`      | `text-accent`             |
-| High Match | `bg-success-lightest`  | `text-success-foreground` |
-| Low Match  | `bg-surface-secondary` | `text-text-secondary`     |
-
----
+| Element | Rule |
+| --- | --- |
+| Small control | `rounded-md` |
+| Button or field | `rounded-lg` |
+| Main panel | `rounded-xl` |
+| Tag and avatar | `rounded-full` |
+| Panel depth | `shadow-card` |
+| Large shell depth | `shadow-panel` |
 
 ## Typography
 
-| Element              | Size | Weight | Line height | Color token           |
-| -------------------- | ---- | ------ | ----------- | --------------------- |
-| Logo text            | 19px | 700    | 28px        | `text-text-darkest`   |
-| Stat number          | 30px | 600    | 36px        | `text-text-primary`   |
-| Section heading      | 16px | 600    | 24px        | `text-text-primary`   |
-| Nav item (active)    | 14px | 500    | 20px        | `text-accent`         |
-| Nav item (inactive)  | 14px | 500    | 20px        | `text-text-dark`      |
-| Card label           | 14px | 500    | 20px        | `text-text-secondary` |
-| Body / activity text | 14px | 500    | 20px        | `text-text-primary`   |
-| Trend badge text     | 12px | 500    | 16px        | `text-success-darker` |
-| Timestamp / muted    | 12px | 400    | 16px        | `text-text-muted`     |
-| Chart axis labels    | 12px | 400    | 15px        | `#9CA3AF`             |
-| Stat subtitle        | 12px | 400    | 16px        | `text-text-muted`     |
+Inter is loaded with `next/font/google` in `app/layout.tsx`.
 
-Font family: **Inter** — import from Google Fonts or use next/font/google.
+| Use | Classes |
+| --- | --- |
+| Page title | `text-3xl font-semibold tracking-tight` |
+| Section title | `text-lg font-semibold` |
+| Panel label | `text-xs font-semibold uppercase tracking-widest` |
+| Body | `text-base leading-6` |
+| Compact metadata | `text-xs text-text-muted` |
 
----
+## Components
 
-## Spacing
+### Panel
 
-| Token       | Value      | Usage                 |
-| ----------- | ---------- | --------------------- |
-| `gap-1`     | 4px        | Tight inline gaps     |
-| `gap-2`     | 8px        | Badge and tag gaps    |
-| `gap-3`     | 12px       | Form field gaps       |
-| `gap-4`     | 16px       | Section internal gaps |
-| `gap-6`     | 24px       | Between sections      |
-| `gap-8`     | 32px       | Page section gaps     |
-| `p-4`       | 16px       | Card padding          |
-| `p-6`       | 24px       | Large card padding    |
-| `px-4 py-2` | 16px / 8px | Button padding        |
-| `px-3 py-1` | 12px / 4px | Badge padding         |
+`rounded-xl border border-border bg-surface shadow-card`
 
----
+### Primary action
 
-## Component Tokens
+`min-h-11 rounded-lg bg-accent px-4 py-2 font-semibold text-accent-foreground hover:bg-accent-dark`
 
-### Cards
+### Secondary action
 
-```
-background: bg-surface
-border: 1px solid var(--border)
-border-radius: 16px (rounded-2xl in Tailwind)
-padding: 24px (p-6)
-box-shadow: 0px 1px 3px rgba(0,0,0,0.1), 0px 1px 2px -1px rgba(0,0,0,0.1)
-```
+`min-h-11 rounded-lg border border-border-muted bg-surface-secondary px-4 py-2 text-text-primary hover:bg-surface-tertiary`
 
-### Buttons
+### Field
 
-**Primary:**
+`min-h-11 rounded-lg border border-border-muted bg-surface-secondary px-3 py-2 text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-2 focus:ring-accent/20`
 
-```
-background: bg-accent
-text: text-accent-foreground
-border-radius: rounded-md
-padding: px-4 py-2
-font-weight: font-medium
-```
+### Focus
 
-**Secondary:**
-
-```
-background: bg-surface
-border: border border-border
-text: text-text-primary
-border-radius: rounded-md
-padding: px-4 py-2
-```
-
-**Ghost:**
-
-```
-background: transparent
-text: text-text-secondary
-hover: hover:bg-surface-secondary
-border-radius: rounded-md
-```
-
-### Input Fields
-
-```
-background: bg-surface
-border: border border-border
-border-radius: rounded-md
-padding: px-3 py-2
-text: text-text-primary
-placeholder: text-text-muted
-focus: ring-1 ring-accent
-```
-
-### Badges
-
-```
-border-radius: rounded-full
-padding: px-2 py-0.5
-font-size: text-xs
-font-weight: font-medium
-```
-
-### Match Score Bar
-
-```
-background track: bg-border-light
-fill: varies by score range (see Match Score Colors above)
-height: 4px
-border-radius: rounded-full
-```
-
-### Trend Badges (stat cards)
-
-```
-background: #ECFDF5 (success-lightest)
-text color: #009966 (success-darker)
-border-radius: 4px (rounded-sm)
-padding: 2px 8px
-font-size: 12px
-font-weight: 500
-```
-
-### Activity Dots
-
-Each activity type has a specific dot color:
-| Activity Type | Outer ring | Inner dot |
-|---|---|---|
-| Resume tailored | `#F3E8FF` (accent-light) | `#7C5CFC` (accent) |
-| Cover letter | `#DBEAFE` (info-light) | `#61A8FF` (info) |
-| Job found | `#D0FAE5` (success-light) | `#00BC7D` (success-alt) |
-Dot size: 8px inner, 16px outer with white border
-
-### Dashboard Chart Colors
-
-| Chart                            | Color                                                           |
-| -------------------------------- | --------------------------------------------------------------- |
-| Jobs Found Over Time (line)      | `#7C5CFC` stroke, 3px width, gradient fill rgba(124,92,252,0.2) |
-| Resume Tailoring Activity (bars) | `#61A8FF`                                                       |
-| Match Score Distribution (bars)  | `#10B981`                                                       |
-| Chart grid lines                 | `1px dashed #E7EAF3`                                            |
-| Chart axis labels                | `#9CA3AF`, 12px                                                 |
-
-### Logo
-
-```
-background: linear-gradient(45deg, #7C5CFC 0%, #4A2EC5 100%)
-border-radius: 10px
-size: 36x36px
-```
-
----
+Every interactive element uses a visible `focus-visible:ring-2 focus-visible:ring-accent` state. Add a matching ring offset when the element sits directly on the page canvas.
 
 ## Invariants
 
-- Never use hex values directly in components — always use CSS variables via Tailwind tokens
-- Font is Inter — always import via next/font/google, never use a fallback system font
-- Never use raw Tailwind color classes like `bg-purple-500` or `text-gray-600` — use project tokens only
-- `--accent` (#7C5CFC) is the only purple — never use Tailwind's built-in purple scale
-- Match score bars always use color tokens based on score range — never hardcoded colors
-- LinkedIn badge always uses `--linkedin` (#0A66C2) — never generic blue
-- All borders default to `--border` (#E7EAF3) — never use `border-gray-*`
+The dark palette is the default mode. The sidebar appears only on protected screens at desktop width. Public screens share the same panels and actions. Components never contain hex, rgb, or hsl color literals. New values must be added to `app/globals.css` first.

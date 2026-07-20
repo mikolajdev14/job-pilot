@@ -2,28 +2,29 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="bg-gradient-to-br from-accent-muted via-surface to-info-lightest">
-      <div className="mx-auto flex max-w-7xl flex-col items-center px-6 py-16 text-center sm:py-20 lg:px-10 lg:py-24">
-        <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-text-black sm:text-5xl lg:text-6xl">
-          Job hunting is hard.
-          <br />
-          Your tools shouldn&apos;t be.
+    <section className="relative overflow-hidden">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 mx-auto h-64 max-w-5xl rounded-full bg-surface-tertiary/50 blur-3xl" />
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center px-5 py-16 text-center sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+        <p className="rounded-full border border-border-muted bg-surface px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-text-secondary">
+          AI powered career workspace
+        </p>
+        <h1 className="mt-6 max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-text-black sm:text-5xl lg:text-6xl">
+          A calmer control center for your entire job search.
         </h1>
         <p className="mt-6 max-w-2xl text-base font-normal leading-7 text-text-secondary sm:text-lg">
-          Stop applying blind. JobPilot finds the jobs, researches the companies,
-          and gives you everything you need to stand out.
+          Find stronger roles, understand every match, and research the company before you apply. Everything stays organized in one focused workspace.
         </p>
         <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row">
           <Link
             href="/login"
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-overlay-dark px-5 py-2 text-sm font-medium text-surface transition-colors hover:bg-text-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             Get Started
             <span aria-hidden="true">→</span>
           </Link>
           <Link
             href="/find-jobs"
-            className="inline-flex min-h-11 items-center justify-center rounded-md border border-border bg-surface px-5 py-2 text-sm font-medium text-text-primary transition-colors hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="inline-flex min-h-11 items-center justify-center rounded-lg border border-border-muted bg-surface px-5 py-2 text-sm font-semibold text-text-primary transition-colors hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             Find Your First Match
           </Link>

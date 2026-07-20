@@ -2,12 +2,16 @@ source: image
 
 # JobPilot design direction
 
-JobPilot uses a calm, editorial SaaS interface: generous white cards on a soft gray canvas, crisp dark typography, restrained purple actions, and semantic status colors. Long product forms use clear fieldsets, thin borders, compact labels, and a single focused content column.
+JobPilot uses a dark monochrome workspace inspired by a compact financial dashboard. The application sits on a near black canvas. Charcoal panels, quiet borders, compact labels, white actions, and restrained status colors create a focused control room for job search work.
 
 ## Build mandate
 
-Match the supplied product screenshots faithfully. Use the existing Navbar and Footer patterns, keep page surfaces light and spacious, and use the CSS tokens in `app/globals.css` as the only source of visual values. New screens should be responsive and accessible without changing the established visual language.
+Use the supplied dark dashboard reference as the visual source. Protected screens use a persistent left sidebar on desktop and a compact navigation bar on mobile. Public screens use the same surfaces and geometry without the sidebar. Keep cards dense, borders subtle, corners softly rounded, and hierarchy clear. Use `app/globals.css` as the only source of visual values.
+
+## Composition
+
+Protected screens start with a small workspace breadcrumb, a clear page title, and grouped panels. Forms use dark inset controls. Tables use quiet row separators and a raised hover state. Primary actions are light with dark text. Secondary actions stay on raised charcoal surfaces.
 
 ## Responsive behavior
 
-Desktop layouts may use two-column form grids inside the centered content column. At mobile widths, fields stack, actions become full width where needed, and no content may overflow horizontally.
+The sidebar becomes a top mobile navigation below the desktop breakpoint. Grids stack on narrow screens. Actions keep a minimum touch target. Tables scroll horizontally when their columns cannot collapse. No content may overflow the viewport.

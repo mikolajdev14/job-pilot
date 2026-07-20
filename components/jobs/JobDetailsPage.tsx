@@ -91,14 +91,17 @@ export function JobDetailsPage({ job }: JobDetailsPageProps) {
   const applyUrl = job.externalApplyUrl || job.sourceUrl;
 
   return (
-    <main id="main-content" className="flex-1 bg-background">
-      <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10">
+    <main id="main-content" className="app-main bg-background">
+      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">Workspace / Job details</p>
         <Link href="/find-jobs" className="inline-flex min-h-11 w-fit items-center gap-1 rounded-md px-1 text-base font-medium text-text-secondary transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
           <ChevronLeftIcon />
           Back to Jobs
         </Link>
+        </div>
 
-        <header className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6">
+        <header className="rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex min-w-0 items-center gap-4">
               <span className="flex size-16 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-secondary text-text-muted"><BuildingIcon /></span>
@@ -129,12 +132,12 @@ export function JobDetailsPage({ job }: JobDetailsPageProps) {
           <InfoCard icon={<CalendarIcon />} iconClass="bg-surface-secondary text-text-secondary" value={formatRelativeTime(job.foundAt)} label="Date Found" />
         </section>
 
-        <section aria-labelledby="match-reasoning-title" className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6">
+        <section aria-labelledby="match-reasoning-title" className="rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6">
           <SectionLabel id="match-reasoning-title" icon={<SparkleIcon />} label="AI Match Reasoning" iconClass="bg-success-lightest text-success" />
           <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-text-primary">{job.matchReason || "No match reasoning is available for this job yet."}</p>
         </section>
 
-        <section aria-labelledby="skills-title" className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6">
+        <section aria-labelledby="skills-title" className="rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6">
           <h2 id="skills-title" className="text-sm font-semibold uppercase tracking-wide text-text-secondary">Required Skills vs Your Profile</h2>
           <div className="mt-5 space-y-5">
             <div>
@@ -156,7 +159,7 @@ export function JobDetailsPage({ job }: JobDetailsPageProps) {
           </div>
         </section>
 
-        <section aria-labelledby="description-title" className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6">
+        <section aria-labelledby="description-title" className="rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6">
           <SectionLabel id="description-title" icon={<DocumentIcon />} label="Job Description" iconClass="bg-surface-secondary text-text-secondary" />
           <p className="mt-5 whitespace-pre-line text-base font-medium leading-7 text-text-primary">{job.aboutRole || "No job description was provided for this role."}</p>
         </section>
@@ -176,7 +179,7 @@ export function JobDetailsPage({ job }: JobDetailsPageProps) {
 }
 
 function InfoCard({ icon, iconClass, value, label }: { icon: React.ReactNode; iconClass: string; value: string; label: string }) {
-  return <article className="flex min-w-0 items-center gap-3 rounded-xl border border-border bg-surface p-4 shadow-sm"><span className={`flex size-11 shrink-0 items-center justify-center rounded-lg ${iconClass}`}>{icon}</span><div className="min-w-0"><p className="truncate text-base font-semibold text-text-primary">{value}</p><p className="mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted">{label}</p></div></article>;
+  return <article className="flex min-w-0 items-center gap-3 rounded-xl border border-border bg-surface p-4 shadow-card"><span className={`flex size-11 shrink-0 items-center justify-center rounded-lg ${iconClass}`}>{icon}</span><div className="min-w-0"><p className="truncate text-base font-semibold text-text-primary">{value}</p><p className="mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted">{label}</p></div></article>;
 }
 
 function SectionLabel({ id, icon, iconClass, label }: { id: string; icon: React.ReactNode; iconClass: string; label: string }) {

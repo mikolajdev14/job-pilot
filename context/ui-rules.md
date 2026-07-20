@@ -1,198 +1,49 @@
 # UI Rules
 
-Concise rules for building JobPilot UI. Design assets are available — use them as the source of truth for visual decisions. These rules cover the most important patterns and constraints to keep the UI consistent without over-specifying every detail.
-
----
-
 ## Font
 
-Always import Inter via `next/font/google` in the root layout.
+Use Inter through `next/font/google` in the root layout.
 
-```typescript
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-```
+## Shell
 
-The `--font-sans` variable is already declared in `@theme` in globals.css. Apply the font variable class to the `<html>` tag in root layout. Never use system fonts as the primary font.
-
----
+Protected screens use the shared `Navbar` as a desktop sidebar and mobile top navigation. Their main landmark uses the `app-main` class so the content clears the sidebar. Public screens use the compact public header rendered by the same component. Login intentionally hides global navigation.
 
 ## Layout
 
-- Page max-width: 1440px, centered
-- Main content area padding: 32px on all sides
-- Gap between page sections: 24px
-- Header height: 64px, full width, white background, padding 0 24px
-- All pages use top navbar only — no sidebar, no drawer
+Use a centered content area with responsive horizontal padding. Keep the protected workspace dense. Prefer a gap of five or six spacing units between major panels. Wide search and table screens may use `max-w-7xl`. Profile and detail screens may use `max-w-6xl`.
 
----
+## Panels
 
-## Navbar
+Every major section uses a charcoal surface, a subtle border, a large radius, and `shadow-card`. Inset controls use `bg-surface-secondary`. Hovered or selected content may use `bg-surface-tertiary`.
 
-Three nav items: Dashboard, Find Jobs, Profile.
+## Navigation
 
-- Active item: `color: #7C5CFC`, font-weight 500, 14px
-- Inactive item: `color: #4A5565`, font-weight 500, 14px
-- No underline — active state is color change only
-- Navbar always white background, full viewport width
+Desktop navigation is grouped inside the left sidebar. The active row uses a raised surface, a stronger border, primary text, and a small light indicator. Mobile navigation exposes icon controls with accessible labels and the same active state.
 
----
+## Typography
 
-## Cards
-
-Every content section lives in a card.
-
-```
-background: #FFFFFF
-border: 1px solid #E7EAF3
-border-radius: 16px
-padding: 24px
-box-shadow: 0px 1px 3px rgba(0,0,0,0.1), 0px 1px 2px -1px rgba(0,0,0,0.1)
-```
-
-Never use colored card backgrounds — always white. Color goes inside cards via badges, bars, and text, never on the card surface itself.
-
----
-
-## Typography Hierarchy
-
-Three levels used consistently throughout:
-
-**Section headings** — card titles, page section titles
-
-```
-font-size: 16px
-font-weight: 600
-color: #101828
-line-height: 24px
-```
-
-**Body / primary content text**
-
-```
-font-size: 14px
-font-weight: 500
-color: #101828
-line-height: 20px
-```
-
-**Secondary / muted text** — labels, timestamps, subtitles
-
-```
-font-size: 12px
-font-weight: 400
-color: #99A1AF
-line-height: 16px
-```
-
-Stat numbers on dashboard use 30px / weight 600 / color #101828.
-
----
-
-## Badges
-
-All badges use `border-radius: 9999px` (pill shape) unless specified otherwise.
-
-```
-padding: 2px 8px
-font-size: 12px
-font-weight: 500
-```
-
-Trend badges on stat cards use `border-radius: 4px` (not pill) with `#ECFDF5` background and `#009966` text.
-
----
+Each screen starts with a small uppercase workspace breadcrumb, one visible `h1`, and a short supporting line. Panel titles use sentence case. Uppercase labels are reserved for compact metadata and controls.
 
 ## Buttons
 
-**Primary button:**
+Primary actions use the light `accent` token with dark foreground text. Secondary actions use a raised dark surface and visible border. All controls keep a minimum height of eleven spacing units and a visible focus ring.
 
-```
-background: #7C5CFC
-color: #FFFFFF
-border-radius: 8px
-padding: 8px 16px
-font-size: 14px
-font-weight: 500
-```
+## Forms
 
-**Secondary button:**
+Fields use `surface-secondary` with `border-muted`. Disabled fields use the page background and muted text. Labels remain visible above fields. Placeholder text never replaces a label.
 
-```
-background: #FFFFFF
-border: 1px solid #E7EAF3
-color: #101828
-border-radius: 8px
-padding: 8px 16px
-```
+## Tables
 
----
+Use semantic table elements. Header rows use `surface-secondary`. Body rows use border separators and a raised hover state. Keep tables horizontally scrollable on narrow screens.
 
-## Form Inputs
+## Images
 
-```
-background: #FFFFFF
-border: 1px solid #E7EAF3
-border-radius: 8px
-padding: 8px 12px
-font-size: 14px
-color: #101828
-placeholder color: #99A1AF
-focus: ring-1 ring-accent border-accent
-```
+Product screenshots use `dashboard-image` to match the monochrome reference. Avatars may use grayscale. Content images keep their real aspect ratio and meaningful alternative text.
 
----
+## Accessibility
 
-## Table (Jobs List)
+Every page has one `main` with `id="main-content"`. The root layout provides a skip link. All interactive controls are keyboard reachable. Focus rings use the accent token. Dynamic status, error, empty, and loading states remain visible and announced.
 
-- No alternating row colors — white rows only, separated by border
-- Row border: `1px solid #E7EAF3` between rows
-- Column headers: uppercase, 12px, font-weight 500, color `#6A7282`
-- Row text: 14px, color `#101828`
-- Hover state: `background: #F9FAFB`
+## Restrictions
 
----
-
-## Match Score Bar
-
-Inline progress bar shown next to the percentage number.
-
-```
-height: 4px
-border-radius: 9999px
-background track: #E7EAF3
-```
-
-Fill color by score:
-
-- 80-100%: `#10B981` (green)
-- 60-79%: `#61A8FF` (blue)
-- Below 60%: `#FF8904` (orange)
-
----
-
-## Empty States
-
-Every section that can be empty must have an empty state. Keep it minimal:
-
-- Short descriptive text in `color: #99A1AF`
-- Optional icon above text
-- CTA button if there's a logical next action
-
----
-
-## Tailwind v4 Note
-
-This project uses Tailwind v4. Tokens are defined with `@theme` in globals.css — no `tailwind.config.ts` needed. Never define colors in a config file. Always use `@theme` for new tokens.
-
----
-
-## Do Nots
-
-- Never use Tailwind's built-in color classes (`bg-purple-500`, `text-gray-600`) — use project tokens only
-- Never define colors in `tailwind.config.ts` — use `@theme` in globals.css
-- Never add gradients to card backgrounds
-- Never use more than one font weight in a single UI element
-- Never show raw error messages to users — always show human readable text
-- Never stack more than 2 levels of border radius inside each other
-- Never use `position: fixed` for UI elements — use normal flow layout
+Do not use built in Tailwind color scales. Do not place color literals in components. Do not add bright gradients to panel backgrounds. Do not remove labels, empty states, loading states, or error states during visual work.

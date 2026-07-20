@@ -31,13 +31,13 @@ JobPilot eliminates all of that preparation work. The agent finds the jobs, scor
 
 ## Navigation
 
-Top navbar. Clean and minimal. Three navigation items:
+Dark workspace navigation. Protected pages use a persistent desktop sidebar and compact mobile top navigation. Public pages use a small top header. The three main destinations are:
 
 ```
 Dashboard    Find Jobs    Profile
 ```
 
-Full width layout on all pages. No sidebar.
+Protected content uses the remaining workspace width beside the sidebar. Mobile content returns to full width.
 
 ---
 
@@ -188,7 +188,6 @@ Full width layout on all pages. No sidebar.
 - Resume tailoring per job
 - Score recalculation after tailoring
 - Previous Job + Next Job navigation
-- Sidebar navigation — top navbar only
 - Separate analytics page — charts live on dashboard
 - Live browser embed on dashboard
 - Live agent feed / realtime log

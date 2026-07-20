@@ -392,7 +392,7 @@ The Company Research card on the job details page must render all 9 fields:
 Build the complete dashboard UI with mock data.
 **UI:**
 
-- Four stat cards: Total Jobs Found, Avg. Match Rate, Companies Researched, Cover Letters Generated — all showing mock numbers with trend indicators
+- Four stat cards: Total Jobs Found, Avg. Match Rate, Companies Researched, Jobs This Week, all showing mock numbers with trend indicators
 - Recent Activity card — list of 5 activity entries with colored dots and timestamps
 - Resume Tailoring Activity — bar chart (mock data, days of week)
 - Jobs Found Over Time — line chart (mock data, days of week)

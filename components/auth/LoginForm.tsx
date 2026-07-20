@@ -29,9 +29,10 @@ export function LoginForm({ initialError }: LoginFormProps) {
   }
 
   return (
-    <div className="w-full max-w-md rounded-xl border border-border bg-surface p-8 shadow-sm sm:p-10">
+    <div className="w-full max-w-md">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
+        <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">Secure sign in</p>
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-text-primary">
           Welcome to JobPilot
         </h1>
         <p className="mt-3 text-base leading-6 text-text-secondary">
@@ -39,12 +40,12 @@ export function LoginForm({ initialError }: LoginFormProps) {
         </p>
       </div>
 
-      <div className="mt-8 space-y-3">
+      <div className="mt-8 space-y-3 rounded-xl border border-border bg-surface-secondary p-3">
         <button
           type="button"
           disabled={isPending}
           onClick={() => handleOAuth("google")}
-          className="flex min-h-11 w-full items-center justify-center rounded-md border border-border bg-surface px-4 py-2 text-sm font-medium text-text-primary transition-colors hover:bg-surface-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex min-h-12 w-full items-center justify-center rounded-lg border border-border-muted bg-surface px-4 py-2 text-sm font-semibold text-text-primary transition-colors hover:bg-surface-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? "Connecting..." : "Continue with Google"}
         </button>
@@ -52,7 +53,7 @@ export function LoginForm({ initialError }: LoginFormProps) {
           type="button"
           disabled={isPending}
           onClick={() => handleOAuth("github")}
-          className="flex min-h-11 w-full items-center justify-center rounded-md bg-overlay-dark px-4 py-2 text-sm font-medium text-surface transition-colors hover:bg-text-slate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex min-h-12 w-full items-center justify-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? "Connecting..." : "Continue with GitHub"}
         </button>

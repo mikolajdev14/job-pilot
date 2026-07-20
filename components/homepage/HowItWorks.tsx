@@ -23,16 +23,17 @@ const features = [
 
 export function HowItWorks() {
   return (
-    <section className="mx-auto grid max-w-7xl border-x border-border bg-surface sm:grid-cols-2">
-      <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
-        <h2 className="max-w-md text-3xl font-semibold leading-tight tracking-tight text-text-black sm:text-4xl">
+    <section className="mx-auto grid max-w-7xl gap-4 px-5 py-8 sm:grid-cols-2 sm:px-8 lg:px-10 lg:py-12">
+      <div className="app-panel flex flex-col justify-center rounded-xl p-6 sm:p-10 lg:p-12">
+        <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">Built for focus</p>
+        <h2 className="mt-4 max-w-md text-3xl font-semibold leading-tight tracking-tight text-text-black sm:text-4xl">
           Manage Your Job Search With Ease
         </h2>
-        <ul className="mt-10">
+        <ul className="mt-8 space-y-2">
           {features.map((feature) => (
             <li
               key={feature.title}
-              className={`border-t border-border py-6 ${feature.active ? "border-l-2 border-l-accent pl-5" : "pl-0"}`}
+              className={`rounded-lg border px-4 py-5 ${feature.active ? "border-border-muted bg-surface-tertiary" : "border-transparent bg-surface-secondary"}`}
             >
               <h3 className="text-base font-semibold leading-6 text-text-primary">
                 {feature.title}
@@ -44,13 +45,13 @@ export function HowItWorks() {
           ))}
         </ul>
       </div>
-      <div className="flex items-center justify-center border-t border-border bg-background p-8 sm:border-l sm:p-12 lg:p-16">
+      <div className="app-panel flex items-center justify-center overflow-hidden rounded-xl p-4 sm:p-6 lg:p-8">
         <Image
           src="/images/jobs-lists.png"
           alt="Job list showing companies, match scores, salary estimates, and sources"
           width={2364}
           height={1778}
-          className="h-auto w-full max-w-xl"
+          className="dashboard-image h-auto w-full max-w-xl rounded-lg"
         />
       </div>
     </section>

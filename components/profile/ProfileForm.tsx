@@ -8,7 +8,7 @@ import { calculateProfileCompletion } from "@/lib/profile-utils";
 import type { ProfileFormValues, WorkRole } from "@/lib/profile-types";
 
 const inputClassName =
-  "min-h-11 w-full rounded-md border border-border bg-surface px-3 py-2 text-base text-text-primary shadow-sm outline-none transition-colors placeholder:text-text-muted hover:border-border-muted focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:bg-surface-secondary disabled:text-text-secondary";
+  "min-h-11 w-full rounded-lg border border-border-muted bg-surface-secondary px-3 py-2 text-base text-text-primary outline-none transition-colors placeholder:text-text-muted hover:bg-surface-tertiary focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:bg-background disabled:text-text-muted";
 
 const labelClassName =
   "text-xs font-semibold uppercase tracking-wide text-text-secondary";
@@ -214,12 +214,23 @@ export function ProfileForm({ initialProfile, loadError }: ProfileFormProps) {
     : "bg-error/10 text-error";
 
   return (
-    <main id="main-content" className="flex-1 bg-background">
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+    <main id="main-content" className="app-main bg-background">
+      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">Workspace / Profile</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-text-primary">Profile control center</h1>
+            <p className="mt-2 max-w-2xl text-base leading-6 text-text-secondary">Keep your candidate data and resume ready for stronger matches.</p>
+          </div>
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border-muted bg-surface px-3 py-2 text-xs font-semibold text-text-secondary">
+            <span className={`size-2 rounded-full ${completion.isComplete ? "bg-success" : "bg-warning"}`} />
+            {completion.percentage}% complete
+          </span>
+        </header>
         {loadError && <p role="alert" className="rounded-lg border border-error/40 bg-error/10 px-4 py-3 text-base text-error">{loadError}</p>}
         <section
           aria-labelledby="profile-attention-title"
-          className={`flex flex-col gap-6 rounded-xl border p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-6 ${statusClasses}`}
+          className={`flex flex-col gap-6 rounded-xl border p-5 shadow-card sm:flex-row sm:items-center sm:justify-between sm:p-6 ${statusClasses}`}
         >
           <div className="flex items-start gap-4">
             <span className={`mt-0.5 flex size-11 shrink-0 items-center justify-center rounded-full ${statusIconClasses}`}>
@@ -227,9 +238,9 @@ export function ProfileForm({ initialProfile, loadError }: ProfileFormProps) {
             </span>
             <div className="space-y-3">
               <div>
-                <h1 id="profile-attention-title" className="text-lg font-semibold text-text-primary">
+                <h2 id="profile-attention-title" className="text-lg font-semibold text-text-primary">
                   {completion.isComplete ? "Profile is complete" : "Profile needs attention"}
-                </h1>
+                </h2>
                 <p className="mt-1 max-w-2xl text-base leading-6 text-text-secondary">
                   {completion.isComplete
                     ? "Your profile is ready for tailored job matches and quality resume generation."
@@ -258,7 +269,7 @@ export function ProfileForm({ initialProfile, loadError }: ProfileFormProps) {
           </div>
         </section>
 
-        <section aria-labelledby="resume-title" className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6">
+        <section aria-labelledby="resume-title" className="rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6">
           <div>
             <h2 id="resume-title" className="text-lg font-semibold text-text-primary">Resume</h2>
             <p className="mt-1 text-base text-text-secondary">Upload your resume or generate one from your profile.</p>
@@ -315,7 +326,7 @@ export function ProfileForm({ initialProfile, loadError }: ProfileFormProps) {
           )}
         </section>
 
-        <form onSubmit={handleSubmit} className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6">
+        <form onSubmit={handleSubmit} className="rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6">
           <div>
             <h2 className="text-lg font-semibold text-text-primary">Profile Information</h2>
             <p className="mt-1 text-base text-text-secondary">Keep your details current to receive better job matches.</p>

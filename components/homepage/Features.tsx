@@ -23,25 +23,26 @@ const features = [
 
 export function Features() {
   return (
-    <section className="mx-auto grid max-w-7xl border-x border-border bg-surface sm:grid-cols-2">
-      <div className="flex items-center justify-center border-t border-border bg-background p-8 sm:order-first sm:border-r sm:p-12 lg:p-16">
+    <section className="mx-auto grid max-w-7xl gap-4 px-5 py-8 sm:grid-cols-2 sm:px-8 lg:px-10 lg:py-12">
+      <div className="app-panel flex items-center justify-center overflow-hidden rounded-xl p-4 sm:order-first sm:p-6 lg:p-8">
         <Image
           src="/images/agnet-log.png"
           alt="JobPilot agent log showing job matching and resume preparation steps"
           width={2144}
           height={1656}
-          className="h-auto w-full max-w-xl"
+          className="dashboard-image h-auto w-full max-w-xl rounded-lg"
         />
       </div>
-      <div className="flex flex-col justify-center border-t border-border p-8 sm:p-12 lg:p-16">
-        <h2 className="max-w-md text-3xl font-semibold leading-tight tracking-tight text-text-black sm:text-4xl">
+      <div className="app-panel flex flex-col justify-center rounded-xl p-6 sm:p-10 lg:p-12">
+        <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">Smarter decisions</p>
+        <h2 className="mt-4 max-w-md text-3xl font-semibold leading-tight tracking-tight text-text-black sm:text-4xl">
           Apply With More Confidence, Every Time
         </h2>
-        <ul className="mt-10">
+        <ul className="mt-8 space-y-2">
           {features.map((feature) => (
             <li
               key={feature.title}
-              className={`border-t border-border py-6 ${feature.active ? "border-l-2 border-l-success pl-5" : "pl-0"}`}
+              className={`rounded-lg border px-4 py-5 ${feature.active ? "border-border-muted bg-surface-tertiary" : "border-transparent bg-surface-secondary"}`}
             >
               <h3 className="text-base font-semibold leading-6 text-text-primary">
                 {feature.title}

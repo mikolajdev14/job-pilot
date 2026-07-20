@@ -217,22 +217,26 @@ export function FindJobsPage() {
   };
 
   return (
-    <main id="main-content" className="flex-1 bg-background">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
-        <section aria-labelledby="job-search-title" className="rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6">
-          <h1 id="job-search-title" className="sr-only">Find Jobs</h1>
+    <main id="main-content" className="app-main bg-background">
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <header>
+          <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">Workspace / Discovery</p>
+          <h1 id="job-search-title" className="mt-2 text-3xl font-semibold tracking-tight text-text-primary">Find your next role</h1>
+          <p className="mt-2 max-w-2xl text-base leading-6 text-text-secondary">Search the market and let JobPilot rank each opportunity against your profile.</p>
+        </header>
+        <section aria-labelledby="job-search-title" className="rounded-xl border border-border bg-surface p-5 shadow-card sm:p-6">
           <form onSubmit={handleSearch} className="grid gap-5 lg:grid-cols-12 lg:items-end">
             <label htmlFor="job-title" className="space-y-2 lg:col-span-5">
               <span className="text-sm font-semibold uppercase tracking-wide text-text-secondary">Job Title</span>
               <span className="relative block">
                 <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-text-muted"><SearchIcon /></span>
-                <input id="job-title" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} placeholder="Frontend Engineer" className="min-h-14 w-full rounded-lg border border-border bg-surface px-4 py-3 pl-12 text-base text-text-primary shadow-sm outline-none transition-colors placeholder:text-text-muted hover:border-border-muted focus:border-accent focus:ring-2 focus:ring-accent/20" />
+                <input id="job-title" value={jobTitle} onChange={(event) => setJobTitle(event.target.value)} placeholder="Frontend Engineer" className="min-h-14 w-full rounded-lg border border-border-muted bg-surface-secondary px-4 py-3 pl-12 text-base text-text-primary outline-none transition-colors placeholder:text-text-muted hover:bg-surface-tertiary focus:border-accent focus:ring-2 focus:ring-accent/20" />
               </span>
             </label>
 
             <label htmlFor="job-location" className="space-y-2 lg:col-span-5">
               <span className="text-sm font-semibold uppercase tracking-wide text-text-secondary">Location</span>
-              <input id="job-location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Remote, New York..." className="min-h-14 w-full rounded-lg border border-border bg-surface px-4 py-3 text-base text-text-primary shadow-sm outline-none transition-colors placeholder:text-text-muted hover:border-border-muted focus:border-accent focus:ring-2 focus:ring-accent/20" />
+              <input id="job-location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Remote, New York..." className="min-h-14 w-full rounded-lg border border-border-muted bg-surface-secondary px-4 py-3 text-base text-text-primary outline-none transition-colors placeholder:text-text-muted hover:bg-surface-tertiary focus:border-accent focus:ring-2 focus:ring-accent/20" />
             </label>
 
             <button type="submit" disabled={searchState === "searching"} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-base font-medium text-accent-foreground transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70 lg:col-span-2">
@@ -247,18 +251,18 @@ export function FindJobsPage() {
 
         <section aria-labelledby="job-results-title" className="flex flex-col gap-6">
           <h2 id="job-results-title" className="sr-only">Job results</h2>
-          <div className="rounded-xl border border-border bg-surface p-4 shadow-sm sm:p-5">
+          <div className="rounded-xl border border-border bg-surface p-4 shadow-card sm:p-5">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
               <label htmlFor="job-filter" className="relative min-w-0 flex-1">
                 <span className="sr-only">Filter by company or role</span>
                 <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-text-muted"><SearchIcon /></span>
-                <input id="job-filter" value={filterQuery} onChange={(event) => updateFilter(event.target.value)} placeholder="Filter by company or role..." className="min-h-11 w-full rounded-lg border border-border bg-surface px-4 py-2.5 pl-11 text-base text-text-primary outline-none transition-colors placeholder:text-text-muted hover:border-border-muted focus:border-accent focus:ring-2 focus:ring-accent/20" />
+                <input id="job-filter" value={filterQuery} onChange={(event) => updateFilter(event.target.value)} placeholder="Filter by company or role..." className="min-h-11 w-full rounded-lg border border-border-muted bg-surface-secondary px-4 py-2.5 pl-11 text-base text-text-primary outline-none transition-colors placeholder:text-text-muted hover:bg-surface-tertiary focus:border-accent focus:ring-2 focus:ring-accent/20" />
               </label>
 
               <div className="flex flex-col gap-3 sm:flex-row">
                 <label className="relative">
                   <span className="sr-only">Match filter</span>
-                  <select value={matchFilter} onChange={(event) => updateMatchFilter(event.target.value as MatchFilter)} className="min-h-11 w-full appearance-none rounded-lg border border-border bg-surface py-2.5 pl-3 pr-9 text-base text-text-primary outline-none transition-colors hover:border-border-muted focus:border-accent focus:ring-2 focus:ring-accent/20 sm:w-40">
+                  <select value={matchFilter} onChange={(event) => updateMatchFilter(event.target.value as MatchFilter)} className="min-h-11 w-full appearance-none rounded-lg border border-border-muted bg-surface-secondary py-2.5 pl-3 pr-9 text-base text-text-primary outline-none transition-colors hover:bg-surface-tertiary focus:border-accent focus:ring-2 focus:ring-accent/20 sm:w-40">
                     <option value="all">All Matches</option>
                     <option value="high">High Match</option>
                     <option value="low">Low Match</option>
@@ -268,7 +272,7 @@ export function FindJobsPage() {
 
                 <label className="relative">
                   <span className="sr-only">Sort jobs</span>
-                  <select value={sortOrder} onChange={(event) => updateSortOrder(event.target.value as SortOrder)} className="min-h-11 w-full appearance-none rounded-lg border border-border bg-surface py-2.5 pl-3 pr-9 text-base text-text-primary outline-none transition-colors hover:border-border-muted focus:border-accent focus:ring-2 focus:ring-accent/20 sm:w-40">
+                  <select value={sortOrder} onChange={(event) => updateSortOrder(event.target.value as SortOrder)} className="min-h-11 w-full appearance-none rounded-lg border border-border-muted bg-surface-secondary py-2.5 pl-3 pr-9 text-base text-text-primary outline-none transition-colors hover:bg-surface-tertiary focus:border-accent focus:ring-2 focus:ring-accent/20 sm:w-40">
                     <option value="score">Match Score</option>
                     <option value="newest">Newest</option>
                     <option value="oldest">Oldest</option>
@@ -279,7 +283,7 @@ export function FindJobsPage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
+          <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-card">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[62rem] border-collapse text-left">
                 <caption className="sr-only">Saved job matches</caption>

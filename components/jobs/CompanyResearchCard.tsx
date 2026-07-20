@@ -94,7 +94,7 @@ export function CompanyResearchCard({ jobId, company, initialResearch }: Company
     }
   }
 
-  return <section aria-labelledby="research-title" className="overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
+  return <section aria-labelledby="research-title" className="overflow-hidden rounded-xl border border-border bg-surface shadow-card">
     <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
       <div className="flex items-center gap-3"><span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-accent-muted text-accent"><BuildingIcon /></span><div><h2 id="research-title" className="text-sm font-semibold uppercase tracking-wide text-text-secondary">Company Research</h2><p className="mt-1 text-sm text-text-muted">Build a tailored interview dossier for {company}.</p></div></div>
       <button type="button" onClick={researchCompany} disabled={isResearching} aria-busy={isResearching} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-dark disabled:cursor-wait disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
