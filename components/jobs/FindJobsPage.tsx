@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import Link from "next/link";
 import { MATCH_THRESHOLD } from "@/lib/utils";
 
 type Job = {
@@ -298,10 +299,10 @@ export function FindJobsPage() {
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-4">
                           <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-secondary text-text-secondary"><BuildingIcon /></span>
-                          <span className="font-semibold text-text-primary">{job.company}</span>
+                          <Link href={`/find-jobs/${job.id}`} className="rounded-md font-semibold text-text-primary transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">{job.company}</Link>
                         </div>
                       </td>
-                      <td className="px-6 py-5 text-base font-medium text-text-dark">{job.role}</td>
+                      <td className="px-6 py-5 text-base font-medium text-text-dark"><Link href={`/find-jobs/${job.id}`} className="rounded-md transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">{job.role}</Link></td>
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-3">
                           <span className="h-1.5 w-24 rounded-full bg-border"><span className={`block h-full rounded-full ${scoreColor(job.score)} ${scoreWidth(job.score)}`} /></span>

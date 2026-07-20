@@ -119,3 +119,21 @@ Content cards: `rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6`
 Jobs table: semantic `table` inside `overflow-x-auto`, with `border-b border-border` rows, `hover:bg-surface-secondary`, and score bar colors `bg-success`, `bg-info-medium`, or `bg-warning` by match score. The initial mock rows are replaced with `/api/agent/find` results after a successful search.
 
 Pagination controls use `min-h-11` touch targets and the active page uses `border-accent/20 bg-accent-light text-accent`.
+
+### JobDetailsPage
+
+Path: `components/jobs/JobDetailsPage.tsx`
+
+Page layout classes: `flex-1 bg-background` with centered content `mx-auto flex max-w-4xl flex-col gap-6 px-4 py-8 sm:px-6 sm:py-10`
+
+Detail card classes: `rounded-xl border border-border bg-surface p-5 shadow-sm sm:p-6`
+
+Research card classes: `overflow-hidden rounded-xl border border-border bg-surface shadow-sm`, with a `border-t border-border` empty state panel.
+
+CompanyResearchCard
+
+Path: `components/jobs/CompanyResearchCard.tsx`
+
+Research card classes: `overflow-hidden rounded-xl border border-border bg-surface shadow-sm`, with `border-t border-border` dossier sections. The action uses `inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground`; loading uses `role="status"`, errors use `role="alert"`, and every dossier section remains visible when its list is empty.
+
+Primary job action classes: `inline-flex min-h-14 w-full items-center justify-center rounded-xl bg-accent px-5 py-3 text-base font-semibold text-accent-foreground`.
