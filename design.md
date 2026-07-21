@@ -6,7 +6,7 @@ JobPilot uses a dark monochrome workspace inspired by a compact financial dashbo
 
 ## Build mandate
 
-Use the supplied dark dashboard reference as the visual source. The dashboard is a separate full width destination with top navigation, matching the independence of the landing page. Work screens such as Find Jobs and Profile use a persistent left sidebar on desktop and a compact navigation bar on mobile. Public screens use the same surfaces and geometry without the sidebar. Keep cards dense, borders subtle, corners softly rounded, and hierarchy clear. Use `app/globals.css` as the only source of visual values.
+Use the supplied dark dashboard reference as the visual source. Every page uses the same full width top navigation with Dashboard, Find Jobs, and Profile as separate destinations. Do not use a sidebar. Keep cards dense, borders subtle, corners softly rounded, and hierarchy clear. Use `app/globals.css` as the only source of visual values.
 
 ## Composition
 
@@ -14,4 +14,4 @@ Dashboard and work screens start with a small workspace breadcrumb, a clear page
 
 ## Responsive behavior
 
-The sidebar becomes a top mobile navigation below the desktop breakpoint. Grids stack on narrow screens. Actions keep a minimum touch target. Tables scroll horizontally when their columns cannot collapse. No content may overflow the viewport.
+The top navigation wraps into a dedicated link row on narrow screens. Grids stack on narrow screens. Actions keep a minimum touch target. Tables scroll horizontally when their columns cannot collapse. No content may overflow the viewport.

@@ -6,7 +6,7 @@ Use Inter through `next/font/google` in the root layout.
 
 ## Shell
 
-The dashboard is a separate full width screen with top navigation. Find Jobs, job details, and Profile use the shared `Navbar` as a desktop sidebar and mobile top navigation. Their main landmark uses the `app-main` class so the content clears the sidebar. Public screens use the compact public header rendered by the same component. Login intentionally hides global navigation.
+Dashboard, Find Jobs, job details, and Profile use the same full width top `Navbar`. Dashboard, Find Jobs, and Profile are always present and each opens its own route. No application screen uses a sidebar. Login intentionally hides global navigation.
 
 ## Layout
 
@@ -18,7 +18,7 @@ Every major section uses a charcoal surface, a subtle border, a large radius, an
 
 ## Navigation
 
-Desktop navigation is grouped inside the left sidebar. The active row uses a raised surface, a stronger border, primary text, and a small light indicator. Mobile navigation exposes icon controls with accessible labels and the same active state.
+Desktop navigation sits between the brand and the account action. The active link uses a raised surface and primary text. On mobile the three links move into a full width row below the brand and account action.
 
 ## Typography
 

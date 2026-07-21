@@ -89,4 +89,4 @@ Every interactive element uses a visible `focus-visible:ring-2 focus-visible:rin
 
 ## Invariants
 
-The dark palette is the default mode. The sidebar appears only on protected screens at desktop width. Public screens share the same panels and actions. Components never contain hex, rgb, or hsl color literals. New values must be added to `app/globals.css` first.
+The dark palette is the default mode. Every product page uses the same top navigation and full width content area. No screen uses a sidebar. Components never contain hex, rgb, or hsl color literals. New values must be added to `app/globals.css` first.

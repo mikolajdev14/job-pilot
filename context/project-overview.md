@@ -31,13 +31,13 @@ JobPilot eliminates all of that preparation work. The agent finds the jobs, scor
 
 ## Navigation
 
-Dark workspace navigation. Protected pages use a persistent desktop sidebar and compact mobile top navigation. Public pages use a small top header. The three main destinations are:
+Dark full width top navigation appears throughout the product. The three main destinations are:
 
 ```
 Dashboard    Find Jobs    Profile
 ```
 
-Protected content uses the remaining workspace width beside the sidebar. Mobile content returns to full width.
+Each destination is a separate full width page. The navbar never changes into a sidebar.
 
 ---
 

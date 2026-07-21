@@ -10,17 +10,13 @@ Path: `components/layout/Navbar.tsx`
 
 Public header: `border-b border-border bg-background/90 backdrop-blur-xl`
 
-Dashboard header: the public header geometry with all three application destinations, an active route surface, and the Sign out action.
+Application header: the public header geometry with Dashboard, Find Jobs, and Profile always visible, an active route surface, and the Sign out action.
 
-Desktop application sidebar: `fixed inset-y-0 start-0 z-40 hidden w-64 flex-col border-e border-border bg-surface p-3 lg:flex`
+Active navigation link: `bg-surface-tertiary text-text-primary`
 
-Active navigation row: `border-border-muted bg-surface-tertiary text-text-primary shadow-card`
+Inactive navigation link: `text-text-secondary hover:bg-surface hover:text-text-primary`
 
-Inactive navigation row: `border-transparent text-text-secondary hover:bg-surface-secondary hover:text-text-primary`
-
-Mobile application header: `flex min-h-16 items-center justify-between border-b border-border bg-surface px-4 lg:hidden`
-
-Protected page main class: `app-main bg-background`
+Mobile navigation: `order-3 flex w-full items-center justify-center gap-1 border-t border-border pt-2`
 
 ### Footer
 
@@ -72,7 +68,7 @@ Secondary provider: `min-h-12 rounded-lg border border-border-muted bg-surface`
 
 Path: `components/dashboard/DashboardPage.tsx`
 
-Page: `min-h-screen bg-background` with `max-w-7xl`. Dashboard intentionally does not use `app-main` or the sidebar.
+Page: `min-h-screen bg-background` with `max-w-7xl`.
 
 The screen includes profile readiness, four statistic cards, a recent activity list, and three accessible chart surfaces. All current values are presentation data for Feature 14. Real InsForge and PostHog data remain owned by Features 15 through 17.
 
@@ -80,7 +76,7 @@ The screen includes profile readiness, four statistic cards, a recent activity l
 
 Path: `components/profile/ProfileForm.tsx`
 
-Page: `app-main bg-background` with `max-w-6xl`
+Page: `min-h-screen bg-background` with `max-w-6xl`
 
 Panel: `rounded-xl border border-border bg-surface shadow-card`
 
@@ -92,7 +88,7 @@ Primary action: `bg-accent text-accent-foreground hover:bg-accent-dark`
 
 Path: `components/jobs/FindJobsPage.tsx`
 
-Page: `app-main bg-background` with `max-w-7xl`
+Page: `min-h-screen bg-background` with `max-w-7xl`
 
 Search and filter controls use `bg-surface-secondary`, `border-border-muted`, and `focus:ring-accent/20`.
 
@@ -102,7 +98,7 @@ Results use a semantic table inside `overflow-x-auto`. The header uses `bg-surfa
 
 Path: `components/jobs/JobDetailsPage.tsx`
 
-Page: `app-main bg-background` with `max-w-6xl`
+Page: `min-h-screen bg-background` with `max-w-6xl`
 
 Header, information cards, match reasoning, skills, description, and research all use `rounded-xl border border-border bg-surface shadow-card`.
 
