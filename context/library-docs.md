@@ -594,6 +594,12 @@ await posthog.shutdown(); // required — ensures event is sent
 - Call `posthog.identify(userId)` after login on client side
 - Call `posthog.reset()` on logout on client side
 
+### Dashboard analytics queries
+
+Dashboard reads use PostHog's server side query endpoint. They require `POSTHOG_API_HOST`, `POSTHOG_PROJECT_ID`, and a server only `POSTHOG_PERSONAL_API_KEY` with Query Read permission. Never expose the personal API key through a `NEXT_PUBLIC_` variable.
+
+Queries must use `POST /api/projects/{project_id}/query/` with a bounded time range and a descriptive `name`. Keep all query code in `lib/posthog-analytics.ts`. Dashboard components receive only aggregated chart data.
+
 ---
 
 ## @react-pdf/renderer

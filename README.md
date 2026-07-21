@@ -16,6 +16,16 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+Dashboard analytics also require these server environment variables:
+
+```bash
+POSTHOG_API_HOST=https://eu.posthog.com
+POSTHOG_PROJECT_ID=your-posthog-project-id
+POSTHOG_PERSONAL_API_KEY=your-query-read-personal-api-key
+```
+
+The personal API key needs PostHog Query Read permission and must never use a `NEXT_PUBLIC_` prefix.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

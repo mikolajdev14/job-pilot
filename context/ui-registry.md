@@ -70,7 +70,11 @@ Path: `components/dashboard/DashboardPage.tsx`
 
 Page: `min-h-screen bg-background` with `max-w-7xl`.
 
-The screen includes profile readiness, four statistic cards, a recent activity list, and three accessible chart surfaces. All current values are presentation data for Feature 14. Real InsForge and PostHog data remain owned by Features 15 through 17.
+The screen includes profile readiness, four statistic cards, a recent activity list, and three accessible Recharts surfaces. Statistics and activity come from owner scoped InsForge reads. Analytics come from a server only PostHog query and expose populated, empty, loading, and error states.
+
+Dashboard data paths: `lib/dashboard-server.ts`, `lib/posthog-analytics.ts`
+
+Dashboard components: `StatsBar.tsx`, `RecentActivity.tsx`, `AnalyticsCharts.tsx`
 
 ### ProfileForm
 

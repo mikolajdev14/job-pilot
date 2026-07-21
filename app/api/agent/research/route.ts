@@ -140,7 +140,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (!dossier) throw new CompanyResearchError("PERSISTENCE_FAILED", 500, "We researched the company but could not validate the saved dossier.");
 
     await writeLog(insforge, userId, jobId, job.runId, "research_succeeded", "success");
-    posthog?.capture({ distinctId: userId, event: "company_research_completed", properties: { userId, jobId, browserEvidenceUsed: result.browserEvidenceUsed, sourceCount: dossier.sources.length } });
+    posthog?.capture({ distinctId: userId, event: "company_researched", properties: { userId, jobId, company: job.company } });
     return NextResponse.json({ success: true, cached: false, dossier });
   } catch (error) {
     if (insforge && userId && jobId && claimed) {

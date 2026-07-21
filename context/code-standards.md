@@ -252,6 +252,9 @@ All environment variables defined in `.env.local` for development. Never hardcod
 | `ADZUNA_API_KEY` or `ADZUNA_APP_KEY`       | lib/adzuna.ts          |
 | `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN`        | lib/posthog-server.ts  |
 | `NEXT_PUBLIC_POSTHOG_HOST`      | lib/posthog-client.ts  |
+| `POSTHOG_API_HOST`              | lib/posthog-analytics.ts |
+| `POSTHOG_PROJECT_ID`            | lib/posthog-analytics.ts |
+| `POSTHOG_PERSONAL_API_KEY`      | lib/posthog-analytics.ts |
 
 `NEXT_PUBLIC_` prefix means the variable is exposed to the browser. Never add `NEXT_PUBLIC_` to secret keys.
 
@@ -311,6 +314,7 @@ Approved dependencies for this project:
 - `openai` — GPT-4o API
 - `posthog-js` — PostHog browser client
 - `posthog-node` — PostHog server client
+- `recharts` — Dashboard analytics charts
 - `@react-pdf/renderer` — Resume PDF generation
 - `pdf-parse` — Extract text from uploaded PDF
 - `zod` — Schema validation
