@@ -10,6 +10,8 @@ Path: `components/layout/Navbar.tsx`
 
 Public header: `border-b border-border bg-background/90 backdrop-blur-xl`
 
+Dashboard header: the public header geometry with all three application destinations, an active route surface, and the Sign out action.
+
 Desktop application sidebar: `fixed inset-y-0 start-0 z-40 hidden w-64 flex-col border-e border-border bg-surface p-3 lg:flex`
 
 Active navigation row: `border-border-muted bg-surface-tertiary text-text-primary shadow-card`
@@ -70,7 +72,7 @@ Secondary provider: `min-h-12 rounded-lg border border-border-muted bg-surface`
 
 Path: `components/dashboard/DashboardPage.tsx`
 
-Page: `app-main bg-background` with `max-w-7xl`
+Page: `min-h-screen bg-background` with `max-w-7xl`. Dashboard intentionally does not use `app-main` or the sidebar.
 
 The screen includes profile readiness, four statistic cards, a recent activity list, and three accessible chart surfaces. All current values are presentation data for Feature 14. Real InsForge and PostHog data remain owned by Features 15 through 17.
 

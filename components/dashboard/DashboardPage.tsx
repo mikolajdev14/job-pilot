@@ -41,7 +41,7 @@ function DashboardIcon({ type }: { type: string }) {
 
 export function DashboardPage() {
   return (
-    <main id="main-content" className="app-main bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>

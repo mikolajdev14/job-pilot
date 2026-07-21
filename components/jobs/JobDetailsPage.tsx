@@ -91,7 +91,7 @@ export function JobDetailsPage({ job }: JobDetailsPageProps) {
   const applyUrl = job.externalApplyUrl || job.sourceUrl;
 
   return (
-    <main id="main-content" className="app-main bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-text-muted">Workspace / Job details</p>
